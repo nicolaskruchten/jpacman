@@ -10,7 +10,7 @@ import nl.tudelft.jpacman.sprite.Sprite;
 /**
  * A player operated unit in our game.
  *
- * @author Jeroen Roosen 
+ * @author Jeroen Roosen
  */
 public class Player extends Unit {
 
@@ -18,6 +18,8 @@ public class Player extends Unit {
      * The amount of points accumulated by this player.
      */
     private int score;
+
+    private int livesLeft;
 
     /**
      * The animations for every direction.
@@ -49,6 +51,7 @@ public class Player extends Unit {
      */
     protected Player(Map<Direction, Sprite> spriteMap, AnimatedSprite deathAnimation) {
         this.score = 0;
+        this.livesLeft = 3;
         this.alive = true;
         this.sprites = spriteMap;
         this.deathSprite = deathAnimation;
@@ -62,6 +65,18 @@ public class Player extends Unit {
      */
     public boolean isAlive() {
         return alive;
+    }
+
+    public int getLivesLeft() {
+        return livesLeft;
+    }
+
+    public boolean attemptRevival() {
+        if(livesLeft <= 0) {return false;}
+        resetSquare();
+        alive = true;
+        livesLeft--;
+        return true;
     }
 
     /**

@@ -5,7 +5,7 @@ import nl.tudelft.jpacman.sprite.Sprite;
 /**
  * A unit that can be placed on a {@link Square}.
  *
- * @author Jeroen Roosen 
+ * @author Jeroen Roosen
  */
 public abstract class Unit {
 
@@ -13,6 +13,11 @@ public abstract class Unit {
      * The square this unit is currently occupying.
      */
     private Square square;
+
+    /**
+     * The square this unit starts on.
+     */
+    private Square startSquare;
 
     /**
      * The direction this unit is facing.
@@ -24,6 +29,10 @@ public abstract class Unit {
      */
     protected Unit() {
         this.direction = Direction.EAST;
+    }
+
+    public void resetSquare() {
+        this.occupy(this.startSquare);
     }
 
     /**
@@ -75,6 +84,9 @@ public abstract class Unit {
 
         if (square != null) {
             square.remove(this);
+        }
+        else {
+            this.startSquare = target;
         }
         square = target;
         target.put(this);

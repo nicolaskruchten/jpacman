@@ -21,7 +21,7 @@ import nl.tudelft.jpacman.npc.Ghost;
  * A level of Pac-Man. A level consists of the board with the players and the
  * AIs on it.
  *
- * @author Jeroen Roosen 
+ * @author Jeroen Roosen
  */
 @SuppressWarnings("PMD.TooManyMethods")
 public class Level {
@@ -285,6 +285,12 @@ public class Level {
     public boolean isAnyPlayerAlive() {
         for (Player player : players) {
             if (player.isAlive()) {
+                return true;
+            }
+            else if(player.attemptRevival()) {
+                for (Ghost ghost : npcs.keySet()) {
+                    ghost.resetSquare();
+                }
                 return true;
             }
         }

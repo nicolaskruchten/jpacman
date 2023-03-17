@@ -14,7 +14,7 @@ import nl.tudelft.jpacman.level.Player;
  * A panel consisting of a column for each player, with the numbered players on
  * top and their respective scores underneath.
  *
- * @author Jeroen Roosen 
+ * @author Jeroen Roosen
  *
  */
 public class ScorePanel extends JPanel {
@@ -33,7 +33,7 @@ public class ScorePanel extends JPanel {
      * The default way in which the score is shown.
      */
     public static final ScoreFormatter DEFAULT_SCORE_FORMATTER =
-        (Player player) -> String.format("Score: %3d", player.getScore());
+        (Player player) -> String.format("Score: %3d, Lives: %d", player.getScore(), player.getLivesLeft());
 
     /**
      * The way to format the score information.
