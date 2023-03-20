@@ -1,10 +1,11 @@
 package nl.tudelft.jpacman.board;
-
+import java.util.stream.Stream;
+import java.util.Arrays;
 
 /**
  * A top-down view of a matrix of {@link Square}s.
  *
- * @author Jeroen Roosen 
+ * @author Jeroen Roosen
  */
 public class Board {
 
@@ -32,14 +33,11 @@ public class Board {
      * @return false if any square on the board is null.
      */
     protected final boolean invariant() {
-        for (Square[] row : board) {
-            for (Square square : row) {
-                if (square == null) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        return squareStream().allMatch((s) -> s != null);
+    }
+
+    public Stream<Square> squareStream() {
+        return Arrays.stream(board).flatMap((row) -> Arrays.stream(row));
     }
 
     /**
