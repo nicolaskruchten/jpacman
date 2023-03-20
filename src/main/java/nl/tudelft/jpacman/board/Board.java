@@ -1,6 +1,7 @@
 package nl.tudelft.jpacman.board;
 import java.util.stream.Stream;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * A top-down view of a matrix of {@link Square}s.
@@ -12,7 +13,7 @@ public class Board {
     /**
      * The grid of squares with board[x][y] being the square at column x, row y.
      */
-    private final Square[][] board;
+    private final Square[][] squares;
 
     /**
      * Creates a new board.
@@ -24,7 +25,7 @@ public class Board {
     @SuppressWarnings("PMD.ArrayIsStoredDirectly")
     Board(Square[][] grid) {
         assert grid != null;
-        this.board = grid;
+        this.squares = grid;
         assert invariant() : "Initial grid cannot contain null squares";
     }
 
@@ -33,11 +34,11 @@ public class Board {
      * @return false if any square on the board is null.
      */
     protected final boolean invariant() {
-        return squareStream().allMatch((s) -> s != null);
+        return squareStream().allMatch(Objects::nonNull);
     }
 
     public Stream<Square> squareStream() {
-        return Arrays.stream(board).flatMap((row) -> Arrays.stream(row));
+        return Arrays.stream(squares).flatMap(Arrays::stream);
     }
 
     /**
@@ -46,7 +47,7 @@ public class Board {
      * @return The width of this board.
      */
     public int getWidth() {
-        return board.length;
+        return squares.length;
     }
 
     /**
@@ -55,7 +56,7 @@ public class Board {
      * @return The height of this board.
      */
     public int getHeight() {
-        return board[0].length;
+        return squares[0].length;
     }
 
     /**
@@ -72,7 +73,7 @@ public class Board {
      */
     public Square squareAt(int x, int y) {
         assert withinBorders(x, y);
-        Square result = board[x][y];
+        Square result = squares[x][y];
         assert result != null : "Follows from invariant.";
         return result;
     }

@@ -298,8 +298,8 @@ public class Level {
      */
     public int remainingPellets() {
         return (int) board.squareStream()
-            .flatMap((square) -> square.getOccupants().stream())
-            .filter((unit) -> unit instanceof Pellet)
+            .flatMap(square -> square.getOccupants().stream())
+            .filter(Pellet.class::isInstance)
             .count();
     }
 
